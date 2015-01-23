@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.io.FileUtils;
 
@@ -38,7 +39,8 @@ public class ToDoActivity extends ActionBarActivity {
         //set method to populate the arraylist
         readItems();
         //set the adapter
-        todoAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,todoitems);
+        todoAdapter = new ArrayAdapter<String>(this, R.layout.list_item,
+                android.R.id.text1, todoitems);
         //make the adapter get the listview
         lvItems.setAdapter(todoAdapter);
         //now we need to be able to remove items
@@ -64,6 +66,9 @@ public class ToDoActivity extends ActionBarActivity {
     public void onAddedItem(View v){
         //method to make button add the task to the list
         String itemText = etNewItem.getText().toString();
+        if (itemText.trim().equals("")) {
+            return;
+        }
         todoAdapter.add(itemText);
         //this resets the settext field
         etNewItem.setText("");
